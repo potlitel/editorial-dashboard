@@ -27,7 +27,8 @@ interface UserProfile {
     MatFormFieldModule, MatInputModule, MatTabsModule
   ],
   template: `
-    <div class="max-w-4xl mx-auto py-6">
+    <!-- Se elimina max-w-4xl mx-auto y se ajusta el padding -->
+    <div class="w-full">
 
       <!-- Título de la Página -->
       <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
@@ -43,8 +44,9 @@ interface UserProfile {
 
           <!-- Avatar -->
           <div class="relative w-24 h-24 rounded-full overflow-hidden shrink-0 mb-4 md:mb-0">
+             <!-- CORRECCIÓN: Se usa el event binding (error) para llamar al método del componente -->
              <img src="/images/editor-avatar.png"
-                  onerror="this.src='https://ui-avatars.com/api/?name={{user.firstName}}+{{user.lastName}}&background=0D8ABC&color=fff&size=128'"
+                  (error)="handleImageError($event)"
                   alt="Avatar del Usuario"
                   class="w-full h-full object-cover border-4 border-white dark:border-gray-700 shadow-md">
              <button mat-icon-button class="absolute bottom-0 right-0 bg-blue-500 hover:bg-blue-600 text-white w-7 h-7 leading-none">
@@ -148,6 +150,18 @@ export class ProfileComponent {
     bio: 'Experimentado editor de ficción y literatura contemporánea. Responsable de la coordinación de equipos de revisión y el control de calidad final de los manuscritos. Con más de 10 años en la industria editorial.',
     status: 'Activo',
   };
+
+  /**
+   * Maneja el error de carga de la imagen del avatar.
+   * Redirige la fuente (src) a un generador de avatares con las iniciales del usuario.
+   * @param event El evento de error del elemento <img>.
+   */
+  handleImageError(event: Event): void {
+    const imgElement = event.target as HTMLImageElement;
+    const name = `${this.user.firstName}+${this.user.lastName}`;
+    // Construye la URL del placeholder dinámicamente
+    imgElement.src = `https://ui-avatars.com/api/?name=${name}&background=0D8ABC&color=fff&size=128`;
+  }
 
   /**
    * NOTA PARA FUTURA INTEGRACIÓN:

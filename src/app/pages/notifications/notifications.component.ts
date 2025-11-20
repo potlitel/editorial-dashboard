@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip'; // <-- ¡IMPORTACIÓN AÑADIDA!
 
 // Interfaz para el modelo de notificación
 interface Notification {
@@ -19,10 +20,11 @@ interface Notification {
   selector: 'app-notifications',
   standalone: true,
   imports: [
-    CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatBadgeModule, DatePipe
+    CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatBadgeModule, DatePipe, MatTooltipModule
   ],
   template: `
-    <div class="max-w-4xl mx-auto py-6">
+    <!-- Se elimina max-w-4xl mx-auto y se ajusta el padding -->
+    <div class="w-full">
 
       <!-- Título y Acciones Globales -->
       <div class="flex justify-between items-center mb-6">

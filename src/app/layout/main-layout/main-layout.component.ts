@@ -122,20 +122,15 @@ import { ThemeService } from '../../core/services/theme.service';
                                 <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Mi Cuenta</span>
                             </div>
 
-                            <!-- Items con estilos ajustados al dark mode (dependen de styles.scss) -->
-                            <button mat-menu-item class="dark:text-gray-200 dark:hover:bg-gray-700">
-                                <mat-icon class="text-gray-500 dark:text-gray-400">badge</mat-icon>
-                                <span>Perfil de Editor</span>
-                            </button>
-                            <button mat-menu-item class="dark:text-gray-200 dark:hover:bg-gray-700">
-                                <mat-icon class="text-gray-500 dark:text-gray-400">assignment_ind</mat-icon>
-                                <span>Mis Manuscritos</span>
-                            </button>
-                            <button mat-menu-item class="dark:text-gray-200 dark:hover:bg-gray-700">
-                                <mat-icon class="text-gray-500 dark:text-gray-400">notifications_active</mat-icon>
-                                <span>Notificaciones</span>
-                                <span class="ml-auto bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">3</span>
-                            </button>
+                            <!-- Ítems del menú generados dinámicamente -->
+                            <ng-container *ngFor="let item of userMenuItems">
+                                <a mat-menu-item [routerLink]="item.link" routerLinkActive="bg-blue-50 dark:bg-gray-700">
+                                    <mat-icon class="text-gray-500 dark:text-gray-400">{{item.icon}}</mat-icon>
+                                    <span>{{item.label}}</span>
+                                    <!-- Si el ítem tiene un badge, lo mostramos -->
+                                    <span *ngIf="item.badgeCount" class="ml-auto bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">{{item.badgeCount}}</span>
+                                </a>
+                            </ng-container>
 
                             <div class="border-t dark:border-gray-700 my-1"></div>
 
@@ -168,6 +163,13 @@ export class MainLayoutComponent {
     { label: 'Usuarios', icon: 'group', link: '/users' },
     { label: 'Reportes', icon: 'bar_chart', link: '/reports' },
     { label: 'Ajustes', icon: 'settings', link: '/settings' },
+  ];
+
+  // Ítems del submenú del usuario (Avatar)
+  userMenuItems = [
+    { label: 'Perfil de Editor', icon: 'badge', link: '/profile' },
+    { label: 'Mis Manuscritos', icon: 'assignment_ind', link: '/manuscripts' },
+    { label: 'Notificaciones', icon: 'notifications_active', link: '/notifications', badgeCount: 3 }, // Ejemplo con contador
   ];
 
   toggleMenu() {
