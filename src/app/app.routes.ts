@@ -16,6 +16,8 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
       // Más rutas aquí
+      // Fallback (cualquier ruta no definida)
+      { path: '**', redirectTo: 'dashboard' }
     ]
   }
 ];
