@@ -57,9 +57,5 @@ Para acceder al sistema sin backend conectado, usa las siguientes credenciales "
 * `src/app/pages`: Vistas principales (Dashboard, Usuarios).
 * `src/app/shared`: Utilidades y componentes reusables.
 
-## 📝 Topics
-
-`angular` `typescript` `admin-dashboard` `material-design` `tailwindcss` `frontend-architecture` `clean-code`
-
 ---
 Desarrollado con ❤️ usando Angular 20.
