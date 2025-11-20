@@ -1,59 +1,65 @@
-# EditorialDashboard
+# 🚀 Angular Editorial Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.
+Una solución **Frontend de nivel experto** construida con **Angular**, **TypeScript**, **Angular Material** y **Tailwind CSS**. Diseñada para ser escalable, modular y profesional.
 
-## Development server
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-To start a local development server, run:
+## ✨ Características Principales
 
-```bash
-ng serve
-```
+* **🔐 Autenticación Robusta:**
+    * Diseño de Login "Split Screen" (Imagen + Formulario).
+    * Validación de formularios con `ReactiveForms`.
+    * Modal de Términos y Condiciones integrado.
+    * Toggle entre Login y Registro.
+* **🎨 UI/UX Profesional:**
+    * Sidebar colapsable con animaciones y Tooltips inteligentes.
+    * **Theme Switcher** (Modo Claro / Oscuro) con persistencia y servicio dedicado.
+    * Diseño totalmente responsivo.
+* **⚡ Arquitectura de Servicios:**
+    * `ApiService` refactorizado con Genéricos `<T>`, manejo de errores centralizado e `HttpParams`.
+    * Estructura lista para conectar endpoints reales.
+* **📊 Dashboard Interactivo:**
+    * Tarjetas de KPI con indicadores visuales.
+    * Tabla de datos avanzada con **Filtrado**, **Ordenamiento** y **Paginación**.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🛠️ Instalación y Uso
 
-## Code scaffolding
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone [https://github.com/tu-usuario/angular-pro-dashboard.git](https://github.com/tu-usuario/angular-pro-dashboard.git)
+    ```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+2.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
 
-```bash
-ng generate component component-name
-```
+3.  **Ejecutar servidor de desarrollo:**
+    ```bash
+    ng serve
+    ```
+    Navega a `http://localhost:4200/`.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🔑 Credenciales de Prueba
 
-```bash
-ng generate --help
-```
+Para acceder al sistema sin backend conectado, usa las siguientes credenciales "hardcoded" para pruebas:
 
-## Building
+* **Usuario:** `admin`
+* **Contraseña:** `12345678`
 
-To build the project run:
+## 📂 Estructura del Proyecto
 
-```bash
-ng build
-```
+* `src/app/core/services`: Servicios singleton (API, Theme).
+* `src/app/auth`: Componentes relacionados con el acceso (Login, Modal).
+* `src/app/layout`: Estructura principal (Sidebar, Toolbar).
+* `src/app/pages`: Vistas principales (Dashboard, Usuarios).
+* `src/app/shared`: Utilidades y componentes reusables.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📝 Topics
 
-## Running unit tests
+`angular` `typescript` `admin-dashboard` `material-design` `tailwindcss` `frontend-architecture` `clean-code`
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+Desarrollado con ❤️ usando Angular 20.
