@@ -1,6 +1,6 @@
 # 🚀 Angular Editorial Dashboard
 
-Una solución **Frontend de nivel experto** construida con **Angular**, **TypeScript**, **Angular Material** y **Tailwind CSS**. Diseñada para ser escalable, modular y profesional.
+Una solución **Frontend para Gestión de Publicaciones y Revisión Editorial** construida con **Angular**, **TypeScript**, **Angular Material** y **Tailwind CSS**. Diseñada para ser escalable, modular y profesional.
 
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
