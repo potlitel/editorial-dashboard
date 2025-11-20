@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common'; // Añadido CurrencyPipe si no está globalmente
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -23,15 +23,19 @@ export interface Transaction {
   standalone: true,
   imports: [
     CommonModule, MatCardModule, MatIconModule, MatTableModule,
-    MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule
+    MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule,
+    // El CurrencyPipe es necesario para el pipe 'currency' en el template
+    CurrencyPipe
   ],
   template: `
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Tarjetas: Se mantiene el dark:bg-gray-800 en mat-card -->
       <mat-card *ngFor="let card of cards" class="p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow dark:bg-gray-800">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-gray-500 text-sm font-medium uppercase">{{card.title}}</p>
-            <h3 class="text-2xl font-bold mt-1">{{card.value}}</h3>
+            <!-- Texto de la tarjeta ajustado para Dark Mode -->
+            <p class="text-gray-500 text-sm font-medium uppercase dark:text-gray-400">{{card.title}}</p>
+            <h3 class="text-2xl font-bold mt-1 text-gray-800 dark:text-white">{{card.value}}</h3>
           </div>
           <div [class]="'p-3 rounded-full ' + card.colorBg">
             <mat-icon [class]="card.colorText">{{card.icon}}</mat-icon>
@@ -40,59 +44,71 @@ export interface Transaction {
       </mat-card>
     </div>
 
-    <h2 class="text-xl font-semibold mb-4">Transacciones Recientes</h2>
+    <!-- Título ajustado para Dark Mode -->
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Transacciones Recientes</h2>
 
-    <mat-form-field appearance="outline" class="w-full md:w-1/3 bg-white dark:bg-gray-800 rounded-lg">
+    <!-- Form Field: Se añade 'mat-form-field-dark' para estilos internos -->
+    <mat-form-field appearance="outline" class="w-full md:w-1/3 rounded-lg mat-form-field-dark">
       <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Juan Perez" #input>
-      <mat-icon matSuffix>search</mat-icon>
+      <!-- Input: El color del texto del input debe ser blanco/claro en Dark Mode -->
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Juan Perez" #input class="text-gray-800 dark:text-white">
+      <!-- Icono: Se ajusta el color del icono en Dark Mode -->
+      <mat-icon matSuffix class="dark:text-gray-400">search</mat-icon>
     </mat-form-field>
 
-    <div class="mat-elevation-z8 rounded-lg overflow-hidden">
+    <!-- Tabla: Se aplica la clase de fondo a la tabla misma para que herede el color. -->
+    <div class="mat-elevation-z8 rounded-lg overflow-hidden bg-white dark:bg-gray-800 border dark:border-gray-700">
       <table mat-table [dataSource]="dataSource" matSort class="w-full">
 
+        <!-- Columnas: Añadimos dark:text-white/dark:text-gray-200 para el texto de la tabla -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> ID </th>
+          <td mat-cell *matCellDef="let row" class="dark:text-gray-200"> {{row.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="user">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-          <td mat-cell *matCellDef="let row"> {{row.user}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Usuario </th>
+          <td mat-cell *matCellDef="let row" class="dark:text-gray-200"> {{row.user}} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
-          <td mat-cell *matCellDef="let row"> {{row.amount | currency}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Monto </th>
+          <td mat-cell *matCellDef="let row" class="dark:text-gray-200"> {{row.amount | currency}} </td>
         </ng-container>
 
-         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="dark:text-white"> Estado </th>
           <td mat-cell *matCellDef="let row">
+            <!-- Los estados ya usan clases relativas al color y Tailwind (ej: text-green-800),
+                 que generalmente funcionan bien. Si necesitas Dark Mode en los estados,
+                 tendrías que añadir clases dark:text-green-300 dark:bg-green-900/50 -->
             <span [ngClass]="{
-              'bg-green-100 text-green-800': row.status === 'Completed',
-              'bg-yellow-100 text-yellow-800': row.status === 'Pending',
-              'bg-red-100 text-red-800': row.status === 'Failed'
+              'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300': row.status === 'Completed',
+              'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300': row.status === 'Pending',
+              'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300': row.status === 'Failed'
             }" class="px-2 py-1 rounded-full text-xs font-bold">
               {{row.status}}
             </span>
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- Filas y encabezados. El fondo de la tabla ahora se maneja por la clase 'dark:bg-gray-800' en el div contenedor -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-100 dark:bg-gray-700"></tr>
+        <!-- Las filas alternan color para mejorar lectura en Dark Mode -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-50 dark:hover:bg-gray-700/50 even:bg-white dark:even:bg-gray-800 odd:bg-gray-50 dark:odd:bg-gray-800/80"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No hay datos para "{{input.value}}"</td>
+          <td class="mat-cell dark:text-gray-400" colspan="4">No hay datos para "{{input.value}}"</td>
         </tr>
       </table>
 
+      <!-- Paginador: Necesita estilos globales para el Dark Mode (ver paso siguiente) -->
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
   `
 })
 export class DashboardComponent implements OnInit {
-  api = inject(ApiService); // Inyectamos el servicio mejorado
+  api = inject(ApiService);
 
   displayedColumns: string[] = ['id', 'user', 'amount', 'status'];
   dataSource: MatTableDataSource<Transaction>;
@@ -122,13 +138,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     // Ejemplo de cómo usar el servicio API mejorado en el futuro:
-     /*
-     this.api.get<Transaction[]>('transactions').subscribe({
-       next: (data) => this.dataSource.data = data,
-       error: (err) => console.error(err)
-     });
-     */
   }
 
   ngAfterViewInit() {

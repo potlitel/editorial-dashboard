@@ -128,3 +128,48 @@ app-main-layout, app-dashboard {
 .dark .mat-list-item-active span {
     color: #60a5fa !important; /* text-blue-400 */
 }
+
+/* --- FIX PARA ELEMENTOS MATERIAL EN DARK MODE --- */
+
+/* 1. Form Field (mat-form-field) */
+/* Estos estilos aseguran que el Mat Form Field (Buscar) se vea bien */
+.dark .mat-mdc-form-field {
+    /* Color de la etiqueta (Label) y texto por defecto */
+    --mdc-filled-text-field-label-text-color: #9ca3af; /* gray-400 */
+    --mdc-filled-text-field-input-text-color: #e5e7eb; /* gray-200 */
+    --mdc-filled-text-field-active-indicator-color: #60a5fa; /* blue-400 */
+    --mdc-filled-text-field-hover-state-layer-color: #374151; /* gray-700 */
+    --mdc-filled-text-field-container-color: #1f2937; /* gray-800 */
+    --mat-mdc-form-field-outline-color: #4b5563; /* gray-600 */
+}
+
+/* 2. Paginator (mat-paginator) */
+/* Estos estilos ajustan el fondo y color de texto del paginador de la tabla */
+.dark .mat-mdc-paginator {
+    background-color: #1f2937 !important; /* bg-gray-800 */
+    color: #e5e7eb; /* text-gray-200 */
+    border-top: 1px solid #374151; /* gray-700 */
+}
+
+.dark .mat-mdc-paginator .mat-mdc-icon-button {
+    color: #e5e7eb; /* color de los iconos de navegación */
+}
+
+.dark .mat-mdc-paginator .mat-mdc-select-value,
+.dark .mat-mdc-paginator .mat-mdc-select-arrow {
+    color: #e5e7eb !important;
+}
+
+.dark .mat-mdc-paginator .mat-mdc-select-trigger {
+    color: #e5e7eb;
+}
+
+/* 3. Tabla (mat-table) - Aseguramos colores de fondo y texto */
+/* Esto permite que la clase dark:bg-gray-800 que pusimos en el contenedor DIV de la tabla funcione */
+.dark .mat-mdc-table {
+    background-color: transparent !important; /* El contenedor DIV ya tiene el color */
+}
+
+.dark .mat-mdc-header-cell {
+    color: #f3f4f6 !important; /* gray-100 */
+}
