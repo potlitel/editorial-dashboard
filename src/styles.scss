@@ -96,3 +96,35 @@ app-main-layout, app-dashboard {
 // .dark .mdc-text-field--outlined .mdc-notched-outline__trailing {
 //   border-color: rgba(255, 255, 255, 0.3) !important;
 // }
+
+/* --- CORRECCIÓN DE MENÚS FLOTANTES EN DARK MODE --- */
+
+/* 1. Fondo del panel del menú */
+.dark .mat-mdc-menu-panel {
+    background-color: #1f2937 !important; /* bg-gray-800 */
+    border: 1px solid #374151; /* border-gray-700 */
+}
+
+/* 2. Texto de los items del menú */
+.dark .mat-mdc-menu-item {
+    color: #e5e7eb !important; /* text-gray-200 */
+}
+
+/* 3. Iconos dentro del menú */
+.dark .mat-mdc-menu-item .mat-icon {
+    color: #9ca3af !important; /* text-gray-400 */
+}
+
+/* 4. Color al pasar el mouse (Hover) en los items */
+.dark .mat-mdc-menu-item:hover:not([disabled]) {
+    background-color: #374151 !important; /* bg-gray-700 */
+}
+
+/* 5. Sidebar Active Link Override para modo oscuro */
+/* Asegura que el link activo sea azul brillante en dark mode */
+.dark .mat-list-item-active .mat-icon {
+    color: #60a5fa !important; /* text-blue-400 */
+}
+.dark .mat-list-item-active span {
+    color: #60a5fa !important; /* text-blue-400 */
+}

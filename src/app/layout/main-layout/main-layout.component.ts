@@ -19,12 +19,16 @@ import { ThemeService } from '../../core/services/theme.service';
     MatButtonModule, MatTooltipModule, MatMenuModule
   ],
   template: `
-    <mat-sidenav-container class="h-full w-full bg-gray-50 dark:bg-gray-900">
+    <!-- 1. 'autosize' es la CLAVE para que el contenido se ajuste al cerrar el sidebar -->
+    <mat-sidenav-container class="h-screen w-full bg-gray-50 dark:bg-gray-900" autosize>
 
+      <!-- 2. Quitamos 'w-64' y usamos estilos inline para controlar la transición de ancho -->
       <mat-sidenav #sidenav mode="side" opened
-        class="bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 w-64 transition-all duration-300"
-        [style.width.px]="isExpanded() ? 260 : 80">
+        class="bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl fixed-sidenav"
+        [style.width.px]="isExpanded() ? 260 : 80"
+        style="transition: width 0.3s ease-in-out">
 
+        <!-- Header del Logo -->
         <div class="h-16 flex items-center justify-center border-b dark:border-gray-700 overflow-hidden">
            <mat-icon color="primary" class="transition-all duration-300"
              [class.scale-150]="isExpanded()" [class.scale-100]="!isExpanded()">
@@ -38,6 +42,7 @@ import { ThemeService } from '../../core/services/theme.service';
            </span>
         </div>
 
+        <!-- Lista de Navegación -->
         <mat-nav-list class="pt-4 px-2">
           <ng-container *ngFor="let item of menuItems">
             <a mat-list-item
@@ -61,9 +66,11 @@ import { ThemeService } from '../../core/services/theme.service';
         </mat-nav-list>
       </mat-sidenav>
 
+      <!-- CONTENIDO PRINCIPAL -->
       <mat-sidenav-content>
         <div class="flex flex-col h-screen">
 
+            <!-- TOOLBAR -->
             <mat-toolbar class="bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-6 flex justify-between items-center shrink-0 z-20 relative">
             <div class="flex items-center">
                 <button mat-icon-button (click)="toggleMenu()" class="mr-4">
@@ -84,13 +91,12 @@ import { ThemeService } from '../../core/services/theme.service';
                         <p class="text-sm font-bold m-0 leading-none dark:text-white">Admin User</p>
                         <p class="text-xs text-gray-500 m-0">admin@empresa.com</p>
                     </div>
-                    <img src="/images/avatar-placeholder.png"
-                         onerror="this.src='https://ui-avatars.com/api/?name=Admin+User'"
-                         class="w-9 h-9 rounded-full bg-gray-200 cursor-pointer ring-2 ring-white dark:ring-gray-700">
-                    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="!p-0 !w-10 !h-10 ml-1">
+
+                    <!-- Avatar con Menu Trigger -->
+                    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="!p-0 !w-9 !h-9 ml-1">
                         <img src="/images/avatar-placeholder.png"
-                            onerror="this.src='https://ui-avatars.com/api/?name=Editor+Jefe&background=0D8ABC&color=fff'"
-                            class="w-9 h-9 rounded-full object-cover ring-2 ring-white dark:ring-gray-700 hover:ring-blue-500 transition-all">
+                             onerror="this.src='https://ui-avatars.com/api/?name=Editor+Jefe&background=0D8ABC&color=fff'"
+                             class="w-9 h-9 rounded-full object-cover ring-2 ring-white dark:ring-gray-700 hover:ring-blue-500 transition-all">
                     </button>
 
                     <mat-menu #userMenu="matMenu" xPosition="before" class="mt-2">
@@ -123,6 +129,7 @@ import { ThemeService } from '../../core/services/theme.service';
             </div>
             </mat-toolbar>
 
+            <!-- ROUTER OUTLET CON SCROLL INTERNO -->
             <div class="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900 scroll-smooth">
                 <router-outlet></router-outlet>
             </div>
@@ -138,9 +145,9 @@ export class MainLayoutComponent {
 
   menuItems = [
     { label: 'Dashboard', icon: 'dashboard', link: '/dashboard' },
-    { label: 'Usuarios', icon: 'group', link: '/users' },
-    { label: 'Reportes', icon: 'bar_chart', link: '/reports' },
-    { label: 'Ajustes', icon: 'settings', link: '/settings' },
+    { label: 'Usuarios', icon: 'group' },
+    { label: 'Reportes', icon: 'bar_chart' },
+    { label: 'Ajustes', icon: 'settings' },
   ];
 
   toggleMenu() {
@@ -148,7 +155,6 @@ export class MainLayoutComponent {
   }
 
   logout() {
-    // Aquí iría la lógica de AuthService.logout()
     console.log('Cerrando sesión...');
     // this.router.navigate(['/login']);
   }
