@@ -13,11 +13,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 4. Estilos Globales */
+/* RESET GLOBAL CRÍTICO */
 html, body {
     height: 100%;
+    width: 100%;
     margin: 0;
-    font-family: 'Roboto', sans-serif; /* Aseguramos que use la fuente local */
+    padding: 0;
+    overflow: hidden; /* Delegamos el scroll a los contenedores internos */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* --- CORRECCIÓN 1: EL "TAJO" EN LOS INPUTS --- */
+/* Forzamos al label a tener fondo blanco (o gris en dark mode) para tapar la línea */
+.mdc-text-field--outlined .mdc-floating-label {
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: white;
+  z-index: 1; /* Asegura que flote por encima de la línea */
+}
+
+/* Corrección para modo oscuro */
+.dark .mdc-text-field--outlined .mdc-floating-label {
+  background-color: #1f2937; /* bg-gray-800 */
+  color: #e5e7eb;
+}
+
+/* --- CORRECCIÓN 2: DASHBOARD VACÍO --- */
+/* Asegura que el router-outlet ocupe espacio */
+app-main-layout, app-dashboard {
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 
 /* Corrección necesaria para iconos Material locales a veces */
@@ -46,27 +72,27 @@ html, body {
 /* --- CORRECCIONES CRÍTICAS PARA FORMULARIOS --- */
 
 /* 1. Arreglar el "Split" en el Label (Modo Claro) */
-.mat-mdc-form-field-floating-label {
-  background-color: white; /* Fondo blanco tapa la línea */
-  padding: 0 4px; /* Un poco de aire a los lados */
-  margin-left: -4px; /* Ajuste para centrar */
-}
+// .mat-mdc-form-field-floating-label {
+//   background-color: white; /* Fondo blanco tapa la línea */
+//   padding: 0 4px; /* Un poco de aire a los lados */
+//   margin-left: -4px; /* Ajuste para centrar */
+// }
 
-/* 2. Arreglar el "Split" en el Label (Modo Oscuro) */
-/* Usamos la clase .dark que pone tu ThemeService en el HTML */
-.dark .mat-mdc-form-field-floating-label {
-  background-color: #111827; /* Debe coincidir con bg-gray-900 de tailwind */
-  color: #e5e7eb; /* Texto gris claro */
-}
+// /* 2. Arreglar el "Split" en el Label (Modo Oscuro) */
+// /* Usamos la clase .dark que pone tu ThemeService en el HTML */
+// .dark .mat-mdc-form-field-floating-label {
+//   background-color: #111827; /* Debe coincidir con bg-gray-900 de tailwind */
+//   color: #e5e7eb; /* Texto gris claro */
+// }
 
-/* 3. Asegurar que el input tenga el color de texto correcto en modo oscuro */
-.dark .mat-mdc-input-element {
-  color: white !important;
-}
+// /* 3. Asegurar que el input tenga el color de texto correcto en modo oscuro */
+// .dark .mat-mdc-input-element {
+//   color: white !important;
+// }
 
-/* 4. Color del borde y placeholder en modo oscuro (Opcional pero recomendado) */
-.dark .mdc-text-field--outlined .mdc-notched-outline__leading,
-.dark .mdc-text-field--outlined .mdc-notched-outline__notch,
-.dark .mdc-text-field--outlined .mdc-notched-outline__trailing {
-  border-color: rgba(255, 255, 255, 0.3) !important;
-}
+// /* 4. Color del borde y placeholder en modo oscuro (Opcional pero recomendado) */
+// .dark .mdc-text-field--outlined .mdc-notched-outline__leading,
+// .dark .mdc-text-field--outlined .mdc-notched-outline__notch,
+// .dark .mdc-text-field--outlined .mdc-notched-outline__trailing {
+//   border-color: rgba(255, 255, 255, 0.3) !important;
+// }

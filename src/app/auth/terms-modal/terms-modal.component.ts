@@ -41,7 +41,7 @@ import { CommonModule } from '@angular/common';
 
       <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex justify-end gap-3 rounded-b-xl">
         <button mat-stroked-button mat-dialog-close color="warn">Rechazar</button>
-        <button mat-flat-button color="primary" mat-dialog-close cdkFocusInitial class="px-8">
+        <button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial class="px-8">
             <mat-icon class="mr-2 text-sm">check</mat-icon>
             Acepto los Términos
         </button>

@@ -9,6 +9,8 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
+      // ESTA LÍNEA ES CRÍTICA: Redirige al dashboard si la ruta base es vacía
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)

@@ -18,13 +18,18 @@ import { TermsModalComponent } from '../terms-modal/terms-modal.component';
       <div class="hidden lg:block w-1/2 bg-cover bg-center relative" style="background-image: url('images/samet-kurtkus-_-WZZhP_J8U-unsplash.jpg')">
         <div class="absolute inset-0 bg-black opacity-40"></div>
         <div class="absolute inset-0 flex items-center justify-center text-white">
-          <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-12 text-center">
+          <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-12 text-center bg-black/30 backdrop-blur-sm">
+            <mat-icon class="scale-[2.5] mb-6 opacity-90">auto_stories</mat-icon>
+
             <h1 class="text-5xl font-extrabold mb-4 tracking-tight drop-shadow-lg">
-                Gestión Corporativa
-                <span class="block text-blue-400">Integral</span>
+                Nexus
+                <span class="text-blue-400">Editorial</span>
             </h1>
-            <p class="text-lg font-light max-w-lg opacity-90 drop-shadow-md">
-                Accede al panel de control unificado para la administración eficiente de recursos y analítica en tiempo real.
+
+            <div class="h-1 w-24 bg-blue-500 rounded mb-6"></div>
+
+            <p class="text-lg font-light max-w-lg opacity-95 drop-shadow-md leading-relaxed">
+                Plataforma integral para la gestión de manuscritos, coordinación de autores y control del ciclo de vida de cada publicación.
             </p>
           </div>
         </div>
@@ -109,10 +114,21 @@ export class LoginComponent {
   }
 
   openTerms() {
-    this.dialog.open(TermsModalComponent, {
-      width: '600px',
-      maxHeight: '90vh'
-    });
+    const dialogRef = this.dialog.open(TermsModalComponent, {
+    width: '600px',
+    maxHeight: '90vh',
+    disableClose: true // Opcional: obliga a usar los botones
+  });
+
+    // ESCUCHAMOS EL CIERRE DEL MODAL
+    dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      // Marcamos el checkbox automáticamente
+      this.authForm.patchValue({ termsAccepted: true });
+      // Opcional: Marcamos el control como "dirty" para que visualmente se vea validado si es necesario
+      this.authForm.get('termsAccepted')?.markAsDirty();
+    }
+  });
   }
 
   onSubmit() {
