@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router'; // Importar Router
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
@@ -160,6 +160,7 @@ import { ThemeService } from '../../core/services/theme.service';
 })
 export class MainLayoutComponent {
   themeService = inject(ThemeService);
+  router = inject(Router);
   isExpanded = signal(true);
 
   menuItems = [
@@ -173,8 +174,13 @@ export class MainLayoutComponent {
     this.isExpanded.update(v => !v);
   }
 
+  /**
+   * Cierra la sesión del usuario (placeholder) y redirige a la página de login.
+   * Se asume que la ruta de login es '/login'.
+   */
   logout() {
-    console.log('Cerrando sesión...');
-    // this.router.navigate(['/login']);
+    console.log('Cerrando sesión y redirigiendo a Login...');
+    // Aquí se ejecutaría la lógica real de logout (limpiar tokens, etc.)
+    this.router.navigate(['/login']);
   }
 }
