@@ -57,22 +57,19 @@ const MOCK_GENRES: Genre[] = [
 
       <!-- Título y Acción Principal -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <h1 class="text-3xl font-bold text-gray-800 dark:text-white flex items-center">
-          <mat-icon class="mr-2 text-blue-600 dark:text-blue-400 text-3xl">category</mat-icon>
-          Gestión de Géneros Literarios
-        </h1>
+        <!-- Filtro de Búsqueda -->
+        <mat-form-field appearance="outline" class="w-full max-w-sm mb-6 mat-form-field-dark">
+          <mat-label class="dark:text-gray-300">Buscar Género</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (ngModelChange)="filterGenres()" class="dark:text-white" placeholder="Ej. Fantasía, Thriller">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
         <button mat-flat-button color="primary" (click)="openGenreModal()">
           <mat-icon>add</mat-icon>
           Nuevo Género
         </button>
       </div>
 
-      <!-- Filtro de Búsqueda -->
-      <mat-form-field appearance="outline" class="w-full max-w-sm mb-6 mat-form-field-dark">
-        <mat-label class="dark:text-gray-300">Buscar Género</mat-label>
-        <input matInput [(ngModel)]="searchTerm" (ngModelChange)="filterGenres()" class="dark:text-white" placeholder="Ej. Fantasía, Thriller">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+
 
       <!-- Contenedor Principal de Géneros -->
       <div class="space-y-4 w-full">
