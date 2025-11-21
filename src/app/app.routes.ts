@@ -58,6 +58,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/series/serie.component').then(m => m.SeriesComponent),
         title: 'Nexus - Colleciones de libros'
       },
+      {
+        path: 'editors',
+        loadComponent: () => import('./pages/editors/editor.component').then(m => m.EditorsComponent),
+        title: 'Nexus - Editores'
+      },
       // Más rutas aquí
       // Fallback (cualquier ruta no definida)
       { path: '**', redirectTo: 'dashboard' }
