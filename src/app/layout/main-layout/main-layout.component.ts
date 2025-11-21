@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeService } from '../../core/services/theme.service';
+import { SidebarStateService } from '../../core/services/sidebar-state.service';
 import { filter, map, startWith } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
@@ -42,24 +43,24 @@ interface MenuSection {
       <!-- SIDEBAR -->
       <mat-sidenav #sidenav mode="side" opened
         class="bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl fixed-sidenav"
-        [style.width.px]="isExpanded() ? 260 : 80"
+        [style.width.px]="sidebarStateService.isExpanded() ? 260 : 80"
         style="transition: width 0.3s ease-in-out">
 
         <!-- HEADER CON BRANDING NEXUS EDITORIAL - AJUSTADO A h-16 (64px) para coincidir con el toolbar -->
         <div class="h-16 flex items-center justify-center border-b dark:border-gray-700 overflow-hidden relative">
             <!-- Icono auto_stories (siempre visible) -->
             <mat-icon class="transition-all duration-300 text-blue-600 dark:text-blue-400"
-              [class.scale-[2.0]]="isExpanded()"
-              [class.scale-125]="!isExpanded()"
-              [class.mr-3]="isExpanded()">
+              [class.scale-[2.0]]="sidebarStateService.isExpanded()"
+              [class.scale-125]="!sidebarStateService.isExpanded()"
+              [class.mr-3]="sidebarStateService.isExpanded()">
               auto_stories
             </mat-icon>
 
             <!-- Texto Nexus Editorial (visible solo si está expandido) -->
             <div class="flex flex-col justify-center transition-all duration-300"
-                 [style.opacity]="isExpanded() ? 1 : 0"
-                 [style.width]="isExpanded() ? 'auto' : '0px'"
-                 [class.hidden]="!isExpanded()">
+                 [style.opacity]="sidebarStateService.isExpanded() ? 1 : 0"
+                 [style.width]="sidebarStateService.isExpanded() ? 'auto' : '0px'"
+                 [class.hidden]="!sidebarStateService.isExpanded()">
 
                 <span class="text-xl font-extrabold tracking-tight dark:text-white leading-none">
                     Nexus
@@ -77,10 +78,10 @@ interface MenuSection {
 
             <!-- ENCABEZADO DE SECCIÓN COLAPSABLE (mat-list-item como botón) -->
             <a mat-list-item
-               (click)="toggleSection(section.label)"
+               (click)="sidebarStateService.toggleSection(section.label)"
                class="mb-1 rounded-lg overflow-hidden h-12 group !bg-transparent hover:!bg-gray-100 dark:hover:!bg-gray-700 cursor-pointer"
                [matTooltip]="section.label"
-               [matTooltipDisabled]="isExpanded()"
+               [matTooltipDisabled]="sidebarStateService.isExpanded()"
                matTooltipPosition="right">
 
               <div class="flex items-center justify-between h-full pl-2 w-full">
@@ -92,29 +93,29 @@ interface MenuSection {
 
                     <!-- Etiqueta de la Sección (Visible solo si está expandido) -->
                     <span class="whitespace-nowrap transition-opacity duration-200 text-gray-700 dark:text-gray-200 font-bold text-sm"
-                          [class.opacity-0]="!isExpanded()"
-                          [class.hidden]="!isExpanded()">
+                          [class.opacity-0]="!sidebarStateService.isExpanded()"
+                          [class.hidden]="!sidebarStateService.isExpanded()">
                       {{section.label}}
                     </span>
                 </div>
 
                 <!-- Icono de Expansión/Colapso (Visible solo si está expandido) -->
-                <mat-icon *ngIf="isExpanded()" class="text-gray-500 dark:text-gray-400 transition-transform duration-200"
-                          [class.rotate-180]="isSectionExpanded(section.label)">
+                <mat-icon *ngIf="sidebarStateService.isExpanded()" class="text-gray-500 dark:text-gray-400 transition-transform duration-200"
+                          [class.rotate-180]="sidebarStateService.isSectionExpanded(section.label)">
                     expand_more
                 </mat-icon>
               </div>
             </a>
 
             <!-- LISTA DE ÍTEMS HIJOS (COLAPSABLE) -->
-            <div *ngIf="isSectionExpanded(section.label) && isExpanded()" class="ml-4 transition-all duration-300 overflow-hidden">
+            <div *ngIf="sidebarStateService.isSectionExpanded(section.label) && sidebarStateService.isExpanded()" class="ml-4 transition-all duration-300 overflow-hidden">
                 <ng-container *ngFor="let item of section.children">
                     <a mat-list-item
                        [routerLink]="item.link"
                        routerLinkActive="bg-blue-50 dark:bg-gray-700 !text-blue-600 dark:!text-blue-400"
                        class="mb-1 rounded-lg overflow-hidden h-10 group pl-0"
                        [matTooltip]="item.label"
-                       [matTooltipDisabled]="isExpanded()"
+                       [matTooltipDisabled]="sidebarStateService.isExpanded()"
                        matTooltipPosition="right">
 
                       <div class="flex items-center h-full pl-2">
@@ -125,8 +126,8 @@ interface MenuSection {
 
                         <!-- Texto del Ítem Hijo -->
                         <span class="whitespace-nowrap transition-opacity duration-200 text-gray-700 dark:text-gray-200 text-sm"
-                              [class.opacity-0]="!isExpanded()"
-                              [class.hidden]="!isExpanded()">
+                              [class.opacity-0]="!sidebarStateService.isExpanded()"
+                              [class.hidden]="!sidebarStateService.isExpanded()">
                           {{item.label}}
                         </span>
                       </div>
@@ -138,9 +139,9 @@ interface MenuSection {
 
         <!-- Pie de página (se puede usar para el toggle del sidebar en el modo colapsado si no está en el toolbar) -->
         <div class="absolute bottom-0 w-full p-4 border-t dark:border-gray-700">
-             <button mat-icon-button (click)="toggleMenu()" class="w-full text-gray-600 dark:text-gray-300 justify-center"
-                     [matTooltip]="isExpanded() ? 'Contraer' : 'Expandir'" matTooltipPosition="right">
-                <mat-icon>{{isExpanded() ? 'chevron_left' : 'chevron_right'}}</mat-icon>
+             <button mat-icon-button (click)="sidebarStateService.toggleSidebar()" class="w-full text-gray-600 dark:text-gray-300 justify-center"
+                     [matTooltip]="sidebarStateService.isExpanded() ? 'Contraer' : 'Expandir'" matTooltipPosition="right">
+                <mat-icon>{{sidebarStateService.isExpanded() ? 'chevron_left' : 'chevron_right'}}</mat-icon>
             </button>
         </div>
 
@@ -153,8 +154,8 @@ interface MenuSection {
             <!-- TOOLBAR: USANDO currentRouteInfo() -->
             <mat-toolbar class="bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-6 flex justify-between items-center shrink-0 z-20 relative">
                 <div class="flex items-center">
-                    <button mat-icon-button (click)="toggleMenu()" class="mr-4 sm:hidden">
-                        <mat-icon class="text-gray-600 dark:text-gray-300">{{isExpanded() ? 'menu_open' : 'menu'}}</mat-icon>
+                    <button mat-icon-button (click)="sidebarStateService.toggleSidebar()" class="mr-4 sm:hidden">
+                        <mat-icon class="text-gray-600 dark:text-gray-300">{{sidebarStateService.isExpanded() ? 'menu_open' : 'menu'}}</mat-icon>
                     </button>
                     <!-- TÍTULO DINÁMICO -->
                     <h2 class="text-lg font-medium m-0 hidden sm:flex items-center text-gray-800 dark:text-white">
@@ -224,10 +225,13 @@ interface MenuSection {
 export class MainLayoutComponent {
   themeService = inject(ThemeService);
   router = inject(Router);
-  isExpanded = signal(true);
+  // isExpanded = signal(true);
 
   // Signal para rastrear qué secciones están expandidas (Set<string>)
-  expandedSections = signal<Set<string>>(new Set(['Principal']));
+  // expandedSections = signal<Set<string>>(new Set(['Principal']));
+
+  // INYECCIÓN DEL SERVICIO DE ESTADO DEL SIDEBAR
+  sidebarStateService = inject(SidebarStateService);
 
   // Definición del menú por secciones colapsables
   menuSections: MenuSection[] = [
@@ -304,37 +308,37 @@ export class MainLayoutComponent {
     });
   }
 
-  toggleMenu() {
-    this.isExpanded.update(v => !v);
-  }
+  // toggleMenu() {
+  //   this.isExpanded.update(v => !v);
+  // }
 
   /**
    * Alterna el estado expandido/colapsado de una sección de menú.
    */
-  toggleSection(label: string) {
-    if (!this.isExpanded()) {
-        // Si el menú está colapsado, no permitimos colapsar las secciones, solo expandimos el menú principal
-        this.toggleMenu();
-        return;
-    }
+  // toggleSection(label: string) {
+  //   if (!this.isExpanded()) {
+  //       // Si el menú está colapsado, no permitimos colapsar las secciones, solo expandimos el menú principal
+  //       this.toggleMenu();
+  //       return;
+  //   }
 
-    this.expandedSections.update(currentSet => {
-      const newSet = new Set(currentSet);
-      if (newSet.has(label)) {
-        newSet.delete(label);
-      } else {
-        newSet.add(label);
-      }
-      return newSet;
-    });
-  }
+  //   this.expandedSections.update(currentSet => {
+  //     const newSet = new Set(currentSet);
+  //     if (newSet.has(label)) {
+  //       newSet.delete(label);
+  //     } else {
+  //       newSet.add(label);
+  //     }
+  //     return newSet;
+  //   });
+  // }
 
   /**
    * Verifica si una sección está expandida.
    */
-  isSectionExpanded(label: string): boolean {
-    return this.expandedSections().has(label);
-  }
+  // isSectionExpanded(label: string): boolean {
+  //   return this.expandedSections().has(label);
+  // }
 
   /**
    * Cierra la sesión del usuario (placeholder) y redirige a la página de login.
