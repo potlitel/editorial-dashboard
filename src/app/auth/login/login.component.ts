@@ -128,6 +128,8 @@ export class LoginComponent {
       // Opcional: Marcamos el control como "dirty" para que visualmente se vea validado si es necesario
       this.authForm.get('termsAccepted')?.markAsDirty();
     }
+    else
+      this.authForm.patchValue({ termsAccepted: false });
   });
   }
 
