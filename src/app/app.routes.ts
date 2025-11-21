@@ -38,6 +38,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/genres/genres.component').then(m => m.GenreComponent),
         title: 'Nexus - Géneros literarios'
       },
+      {
+        path: 'authors',
+        loadComponent: () => import('./pages/authors/authors.component').then(m => m.AuthorComponent),
+        title: 'Nexus - Autores'
+      },
       // Más rutas aquí
       // Fallback (cualquier ruta no definida)
       { path: '**', redirectTo: 'dashboard' }
