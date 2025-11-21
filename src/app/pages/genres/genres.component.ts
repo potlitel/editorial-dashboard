@@ -172,33 +172,6 @@ const MOCK_GENRES: Genre[] = [
 export class GenreComponent {
   private dialog = inject(MatDialog);
 
-  // --- SIGNALS para el estado de la UI y los Datos ---
-
-  /** * Signal que contiene la lista de géneros.
-   * Se inicializa con datos fijos (mock data).
-   */
-  // genres = signal<Genre[]>([
-  //   {
-  //     id: 101,
-  //     name: 'Ficción Contemporánea',
-  //     books: [
-  //       { title: 'La Ciudad de Cristal', isbn: '978-3-16-148410-0' },
-  //       { title: 'El Silencio del Mar', isbn: '978-0-13-708170-9' }
-  //     ]
-  //   },
-  //   {
-  //     id: 102,
-  //     name: 'Thriller Psicológico',
-  //     books: [
-  //       { title: 'El Paciente Silencioso', isbn: '978-1-56619-909-4' }
-  //     ]
-  //   },
-  //   {
-  //     id: 103,
-  //     name: 'Fantasía Épica',
-  //     books: []
-  //   }
-  // ]);
   // --- ESTADO PRINCIPAL DE DATOS Y UI (SIGNALS) ---
 
   /** Lista completa de géneros (mock data). Es la fuente de verdad. */
