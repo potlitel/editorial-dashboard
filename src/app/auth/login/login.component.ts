@@ -115,7 +115,7 @@ export class LoginComponent {
 
   openTerms() {
     const dialogRef = this.dialog.open(TermsModalComponent, {
-    width: '600px',
+    width: '750px',
     maxHeight: '90vh',
     disableClose: true // Opcional: obliga a usar los botones
   });

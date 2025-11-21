@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
   template: `
-    <div class="flex flex-col max-h-[85vh]">
+    <div class="flex flex-col max-h-[90vh] p-4 dark:bg-gray-800 rounded-lg">
       <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-t-xl">
         <div class="flex items-center gap-3">
             <mat-icon class="text-blue-600 scale-125">gavel</mat-icon>
