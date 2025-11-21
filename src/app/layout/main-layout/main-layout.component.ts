@@ -160,6 +160,7 @@ export class MainLayoutComponent {
 
   menuItems = [
     { label: 'Dashboard', icon: 'dashboard', link: '/dashboard' },
+    { label: 'Géneros', icon: 'group', link: '/genres' },
     { label: 'Usuarios', icon: 'group', link: '/users' },
     { label: 'Reportes', icon: 'bar_chart', link: '/reports' },
     { label: 'Ajustes', icon: 'settings', link: '/settings' },

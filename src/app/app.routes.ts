@@ -33,6 +33,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/notifications/notifications.component').then(m => m.NotificationsComponent),
         title: 'Nexus - Notificaciones'
       },
+      {
+        path: 'genres',
+        loadComponent: () => import('./pages/genres/genres.component').then(m => m.GenreComponent),
+        title: 'Nexus - Géneros literarios'
+      },
       // Más rutas aquí
       // Fallback (cualquier ruta no definida)
       { path: '**', redirectTo: 'dashboard' }
