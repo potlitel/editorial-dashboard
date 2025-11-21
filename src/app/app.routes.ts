@@ -73,6 +73,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/comments/comments.component').then(m => m.CommentsComponent),
         title: 'Nexus - Comentarios de reseñas'
       },
+      {
+        path: 'users',
+        loadComponent: () => import('./pages/users/users.component').then(m => m.UsersComponent),
+        title: 'Nexus - Usuarios'
+      },
       // Más rutas aquí
       // Fallback (cualquier ruta no definida)
       { path: '**', redirectTo: 'dashboard' }
