@@ -43,6 +43,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/authors/authors.component').then(m => m.AuthorComponent),
         title: 'Nexus - Autores'
       },
+      {
+        path: 'contracts',
+        loadComponent: () => import('./pages/contracts/contract.component').then(m => m.ContractComponent),
+        title: 'Nexus - Contratos'
+      },
       // Más rutas aquí
       // Fallback (cualquier ruta no definida)
       { path: '**', redirectTo: 'dashboard' }
