@@ -83,6 +83,16 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/books/books.component').then(m => m.BooksComponent),
         title: 'Nexus - Libros'
       },
+      {
+        path: 'reports',
+        loadComponent: () => import('./pages/reports/reports.component').then(m => m.SystemReportsComponent),
+        title: 'Nexus - Reportes'
+      },
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/settings/settings.component').then(m => m.SystemSettingsComponent),
+        title: 'Nexus - Ajustes'
+      },
       // Más rutas aquí
       // Fallback (cualquier ruta no definida)
       { path: '**', redirectTo: 'dashboard' }
